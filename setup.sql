@@ -1,6 +1,6 @@
-/* HAD TO USE DIFFERENT SQL FILE
+USE clairskeepr;
 
-CREATE TABLE users (
+/* CREATE TABLE users (
      id VARCHAR(255) NOT NULL,
      username VARCHAR(20) NOT NULL,
      email VARCHAR(255) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE users (
          REFERENCES users(id)
          ON DELETE CASCADE,  
      PRIMARY KEY (id)
- );
+ ); */
 
  CREATE TABLE vaultkeeps (
      id int NOT NULL AUTO_INCREMENT,
@@ -63,6 +63,6 @@ CREATE TABLE users (
 
 
  -- USE THIS LINE FOR GET KEEPS BY VAULTID
- SELECT * FROM vaultkeeps vk
+ /* SELECT * FROM vaultkeeps vk
  INNER JOIN keeps k ON k.id = vk.keepId 
  WHERE (vaultId = @vaultId AND vk.userId = @userId)  */
