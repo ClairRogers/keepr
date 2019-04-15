@@ -16,22 +16,37 @@ namespace keepr.Repositories
 
     internal IEnumerable<Keep> GetALL()
     {
-      throw new NotImplementedException();
+      return _db.Query<Keep>("SELECT * FROM keeps");
     }
 
-    internal Keep GetById(int id)
+    internal Keep GetById(int Id)
     {
-      throw new NotImplementedException();
+      return _db.QueryFirstOrDefault<Keep>("SELECT * FROM keeps WHERE id = @Id", new { Id });
     }
 
     internal Keep Create(Keep newKeepData)
     {
-      throw new NotImplementedException();
+      try
+      {
+        int id = _db.ExecuteScalar<int>(@"
+                INSERT INTO keeps (name, description, userId, img)
+                    VALUES (@Name, @Description, @UserId, @Img);
+                    SELECT LAST_INSERT_ID();
+                ", newKeepData);
+        newKeepData.Id = id;
+        return newKeepData;
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        return null;
+      }
     }
 
-    internal bool Delete(int id)
+    internal bool Delete(int Id)
     {
-      throw new NotImplementedException();
+      int success = _db.Execute("DELETE FROM keeps WHERE id = @Id", new { Id });
+      return success > 0;
     }
 
 

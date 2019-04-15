@@ -1,10 +1,28 @@
 <template>
-  <div class="home">
-    <h1>Welcome Home</h1>
+  <div class="home container">
+    <div class="row">
+      <div class="card-columns">
+        <div v-for="keep in keeps" class="card pointer" @click="setActiveKeep(keep)" data-toggle="modal"
+          data-target=".bd-example-modal-lg" @mouseover="showStuff = true" @mouseleave="showStuff = false">
+          <img :src="keep.img" class="card-img-top">
+          <div class="card-body">
+            <p class="card-text">{{keep.name}}
+            </p>
+          </div>
+          <div class="card-img-overlay p-0 text-left">
+            <h2 v-if="showStuff" class="card-text whitecolor pointer"><i class="fas fa-plus-square ml-2 mt-1"></i></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <keepviewmodal></keepviewmodal>
+  </div>
   </div>
 </template>
 
 <script>
+  import keepviewmodal from '@/components/keepviewmodal.vue'
   export default {
     name: "home",
     mounted() {
@@ -12,6 +30,40 @@
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
       }
+      this.$store.dispatch('getKeeps')
+    },
+    data() {
+      return {
+        showStuff: false
+      }
+    },
+    computed: {
+      keeps() {
+        return this.$store.state.keeps
+      }
+    },
+    methods: {
+      setActiveKeep(keep) {
+        this.$store.dispatch('setActiveKeep', keep)
+      }
+    },
+    components: {
+      keepviewmodal
     }
   };
 </script>
+
+<style>
+  .card-columns {
+    column-count: 4;
+  }
+
+  .card {
+    background-color: #f4f3f3;
+  }
+
+  .whitecolor {
+    color: white;
+    text-shadow: 0 0 1px black;
+  }
+</style>

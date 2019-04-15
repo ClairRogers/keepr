@@ -12,10 +12,10 @@ namespace Keepr.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class KeepController : ControllerBase
+  public class KeepsController : ControllerBase
   {
     private readonly KeepRepository _kr;
-    public KeepController(KeepRepository kr)
+    public KeepsController(KeepRepository kr)
     {
       _kr = kr;
     }
@@ -43,8 +43,10 @@ namespace Keepr.Controllers
 
     //NEW KEEP
     [HttpPost]
+    [Authorize]
     public ActionResult<Keep> Create([FromBody] Keep newKeepData)
     {
+      newKeepData.UserId = HttpContext.User.Identity.Name;
       Keep newKeep = _kr.Create(newKeepData);
       if (newKeep == null) { return BadRequest("Cannot create keep"); }
       return Ok(newKeep);
