@@ -14,27 +14,27 @@ namespace keepr.Repositories
     IDbConnection _db;
 
 
-    internal IEnumerable<Vault> GetALL()
+    internal IEnumerable<Vault> Get(string UserId)
     {
-      return _db.Query<Vault>("SELECT * FROM vaults");
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @UserId", new { UserId });
     }
 
-    internal Keep GetById(int Id)
+    internal Vault GetById(int Id)
     {
-      return _db.QueryFirstOrDefault<Keep>("SELECT * FROM keeps WHERE id = @Id", new { Id });
+      return _db.QueryFirstOrDefault<Vault>("SELECT * FROM vaults WHERE id = @Id", new { Id });
     }
 
-    internal Keep Create(Keep newKeepData)
+    internal Vault Create(Vault newVaultData)
     {
       try
       {
         int id = _db.ExecuteScalar<int>(@"
-                INSERT INTO keeps (name, description, userId, img)
-                    VALUES (@Name, @Description, @UserId, @Img);
+                INSERT INTO vaults (name, description, userId)
+                    VALUES (@Name, @Description, @UserId);
                     SELECT LAST_INSERT_ID();
-                ", newKeepData);
-        newKeepData.Id = id;
-        return newKeepData;
+                ", newVaultData);
+        newVaultData.Id = id;
+        return newVaultData;
       }
       catch (Exception e)
       {
@@ -45,10 +45,9 @@ namespace keepr.Repositories
 
     internal bool Delete(int Id, string UserId)
     {
-      int success = _db.Execute("DELETE FROM keeps WHERE id = @Id AND userId = @UserId", new { Id, UserId });
+      int success = _db.Execute("DELETE FROM vaults WHERE id = @Id AND userId = @UserId", new { Id, UserId });
       return success > 0;
     }
-
 
 
 

@@ -118,6 +118,22 @@ export default new Vuex.Store({
     },
     setActiveKeep({ commit, dispatch }, payload) {
       commit('setActiveKeep', payload)
-    }
+    },
+
+
+
+
+
+
+    getVaults({ commit, dispatch }, uid) {
+      api.get('vaults', uid)
+        .then(res => {
+          commit('setVaults', res.data)
+        })
+        .catch(e => {
+          console.log('cant get vaults')
+        })
+    },
+
   }
 })

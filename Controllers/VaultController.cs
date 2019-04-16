@@ -12,31 +12,20 @@ namespace Keepr.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class KeepsController : ControllerBase
+  public class VaultController : ControllerBase
   {
-    private readonly KeepRepository _kr;
-    public KeepsController(KeepRepository kr)
+    private readonly VaultRepository _vr;
+    public VaultController(VaultRepository vr)
     {
-      _kr = kr;
+      _vr = vr;
     }
 
-    //GETALL
-    [HttpGet]
-    public ActionResult<IEnumerable<Keep>> Get()
-    {
-      IEnumerable<Keep> results = _kr.GetALL();
-      if (results == null)
-      {
-        return BadRequest();
-      }
-      return Ok(results);
-    }
 
     //GETBYID
     [HttpGet("{id}")]
-    public ActionResult<Keep> GetById(int id)
+    public ActionResult<Vault> GetById(int id)
     {
-      Keep result = _kr.GetById(id);
+      Vault result = _vr.GetById(id);
       if (result == null) { return BadRequest(); }
       return Ok(result);
     }
@@ -44,10 +33,10 @@ namespace Keepr.Controllers
     //GET BY USER
     [HttpGet]
     [Authorize]
-    public ActionResult<IEnumerable<Keep>> Get(string UserId)
+    public ActionResult<IEnumerable<Vault>> Get(string UserId)
     {
       UserId = HttpContext.User.Identity.Name;
-      IEnumerable<Keep> results = _kr.GetByUser(UserId);
+      IEnumerable<Vault> results = _vr.Get(UserId);
       if (results == null)
       {
         return BadRequest();
@@ -55,24 +44,24 @@ namespace Keepr.Controllers
       return Ok(results);
     }
 
-    //NEW KEEP
+    //NEW VAULT
     [HttpPost]
     [Authorize]
-    public ActionResult<Keep> Create([FromBody] Keep newKeepData)
+    public ActionResult<Vault> Create([FromBody] Vault newVaultData)
     {
-      newKeepData.UserId = HttpContext.User.Identity.Name;
-      Keep newKeep = _kr.Create(newKeepData);
-      if (newKeep == null) { return BadRequest("Cannot create keep"); }
-      return Ok(newKeep);
+      newVaultData.UserId = HttpContext.User.Identity.Name;
+      Vault newVault = _vr.Create(newVaultData);
+      if (newVault == null) { return BadRequest("Cannot create vault"); }
+      return Ok(newVault);
     }
 
-    //DELETE KEEP
+    //DELETE VAULT
     [HttpDelete("{id}")]
     [Authorize]
     public ActionResult<string> Delete(int id)
     {
       string userId = HttpContext.User.Identity.Name;
-      bool successful = _kr.Delete(id, userId);
+      bool successful = _vr.Delete(id, userId);
       if (!successful) { return BadRequest(); }
       return Ok();
     }
