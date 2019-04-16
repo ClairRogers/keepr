@@ -23,7 +23,9 @@ export default new Vuex.Store({
   state: {
     user: {},
     keeps: [],
-    activeKeep: {}
+    activeKeep: {},
+    myKeeps: [],
+    vaults: []
   },
   mutations: {
     setUser(state, user) {
@@ -34,6 +36,12 @@ export default new Vuex.Store({
     },
     setActiveKeep(state, data) {
       state.activeKeep = data
+    },
+    setMyKeeps(state, data) {
+      state.myKeeps = data
+    },
+    setVaults(state, data) {
+      state.vaults = data
     }
   },
   actions: {
@@ -67,6 +75,14 @@ export default new Vuex.Store({
           console.log('Login Failed')
         })
     },
+    logout({ commit, dispatch }) {
+      auth.delete('logout')
+        .then(res => {
+          router.push({ name: 'login' })
+          let data = {}
+          commit('setUser', data)
+        })
+    },
 
 
 
@@ -77,6 +93,15 @@ export default new Vuex.Store({
       api.get('keeps')
         .then(res => {
           commit('setKeeps', res.data)
+        })
+        .catch(e => {
+          console.log('cant get keeps')
+        })
+    },
+    getMyKeeps({ commit, dispatch }, uid) {
+      api.get('keeps', uid)
+        .then(res => {
+          commit('setMyKeeps', res.data)
         })
         .catch(e => {
           console.log('cant get keeps')

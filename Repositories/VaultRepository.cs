@@ -8,15 +8,15 @@ using System.Collections.Generic;
 
 namespace keepr.Repositories
 {
-  public class KeepRepository
+  public class VaultRepository
   {
 
     IDbConnection _db;
 
 
-    internal IEnumerable<Keep> GetALL()
+    internal IEnumerable<Vault> GetALL()
     {
-      return _db.Query<Keep>("SELECT * FROM keeps");
+      return _db.Query<Vault>("SELECT * FROM vaults");
     }
 
     internal Keep GetById(int Id)
@@ -49,12 +49,11 @@ namespace keepr.Repositories
       return success > 0;
     }
 
-    internal IEnumerable<Keep> GetByUser(string UserId)
-    {
-      return _db.Query<Keep>("SELECT * FROM keeps WHERE userId = @UserId", new { UserId });
-    }
 
-    public KeepRepository(IDbConnection db)
+
+
+
+    public VaultRepository(IDbConnection db)
     {
       _db = db;
     }

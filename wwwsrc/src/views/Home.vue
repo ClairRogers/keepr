@@ -54,12 +54,35 @@
 </script>
 
 <style>
-  .card-columns {
-    column-count: 4;
+  @media (min-width: 300px) {
+    .card-columns {
+      column-count: 2;
+    }
   }
+
+  @media (min-width: 768px) {
+    .card-columns {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .card-columns {
+      column-count: 4;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .card-columns {
+      column-count: 5;
+    }
+  }
+
 
   .card {
     background-color: #f4f3f3;
+    display: inline-block;
+    width: 100%
   }
 
   .whitecolor {

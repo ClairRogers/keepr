@@ -14,6 +14,9 @@
           <li class="nav-item">
             <a v-if="user.username" class="nav-item nav-link pointer" @click="goDashboard">My Dashboard</a>
           </li>
+          <li class="nav-item">
+            <a v-if="user.username" class="nav-item nav-link pointer" @click="logout">Logout</a>
+          </li>
         </ul>
         <span class="navbar-text">
           <span v-if="user.username">Hello, {{user.username}}</span>
@@ -47,6 +50,9 @@
       },
       goDashboard() {
         router.push({ name: 'dashboard' })
+      },
+      logout() {
+        this.$store.dispatch('logout')
       }
     },
     components: {

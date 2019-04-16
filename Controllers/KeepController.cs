@@ -41,6 +41,19 @@ namespace Keepr.Controllers
       return Ok(result);
     }
 
+    //GET BY USER
+    [HttpGet]
+    public ActionResult<IEnumerable<Keep>> Get(string UserId)
+    {
+      UserId = HttpContext.User.Identity.Name;
+      IEnumerable<Keep> results = _kr.GetByUser(UserId);
+      if (results == null)
+      {
+        return BadRequest();
+      }
+      return Ok(results);
+    }
+
     //NEW KEEP
     [HttpPost]
     [Authorize]
@@ -56,7 +69,8 @@ namespace Keepr.Controllers
     [HttpDelete("{id}")]
     public ActionResult<string> Delete(int id)
     {
-      bool successful = _kr.Delete(id);
+      string userId = HttpContext.User.Identity.Name;
+      bool successful = _kr.Delete(id, userId);
       if (!successful) { return BadRequest(); }
       return Ok();
     }

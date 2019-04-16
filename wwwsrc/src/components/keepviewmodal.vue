@@ -14,9 +14,25 @@
                   <h2 class="mt-4 bottom-border pb-2">{{activeKeep.name}}</h2>
                   <p>{{activeKeep.description}}</p>
                 </div>
-                <div class="card-footer">
-                  <small>Last updated 3 mins ago</small>
-                </div>
+                <span>
+                  <span class="d-flex flex-row justify-content-center">
+                    <button class="btn btn-sm btn-danger mb-3 mx-2"><i class="fas fa-ban"
+                        title="Delete keep"></i></button>
+                    <div class="dropdown">
+                      <button class="btn btn-secondary btn-sm dropdown-toggle mx-2" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Add to Vault
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                      </div>
+                    </div>
+                  </span>
+                  <div class="card-footer">
+                    <small><i class="far fa-eye" title="Views"></i>: {{activeKeep.views}} <i
+                        class="fas fa-share-square ml-4 pointer" title="Share"></i></small>
+                  </div>
+                </span>
               </div>
             </div>
           </div>
