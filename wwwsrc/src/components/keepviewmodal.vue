@@ -16,15 +16,16 @@
                 </div>
                 <span>
                   <span class="d-flex flex-row justify-content-center">
-                    <button class="btn btn-sm btn-danger mb-3 mx-2"><i class="fas fa-ban"
-                        title="Delete keep"></i></button>
+                    <button class="btn btn-sm btn-danger mb-3 mx-2" @click="deleteKeep(activeKeep)"><i
+                        class="fas fa-ban" title="Delete keep"></i></button>
                     <div class="dropdown">
                       <button class="btn btn-secondary btn-sm dropdown-toggle mx-2" type="button"
                         id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Add to Vault
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
+                        <a v-for="vault in vaults" class="dropdown-item pointer"
+                          @click="addToVault(vault)">{{vault.name}}</a>
                       </div>
                     </div>
                   </span>
@@ -52,9 +53,20 @@
     computed: {
       activeKeep() {
         return this.$store.state.activeKeep
+      },
+      vaults() {
+        return this.$store.state.vaults
       }
     },
-    methods: {},
+    methods: {
+      addToVault(vault) {
+        this.$store.dispatch('addToVault', vault)
+      },
+      deleteKeep(keep) {
+        this.$store.dispatch('deleteKeep', keep)
+        $('#bd-example-modal-lg').modal('hide');
+      }
+    },
     components: {}
   }
 </script>

@@ -42,9 +42,9 @@ namespace Keepr.Controllers
     }
 
     //GET BY USER
-    [HttpGet]
+    [HttpGet("{UserId}")]
     [Authorize]
-    public ActionResult<IEnumerable<Keep>> Get(string UserId)
+    public ActionResult<IEnumerable<Keep>> GetByUser(string UserId)
     {
       UserId = HttpContext.User.Identity.Name;
       IEnumerable<Keep> results = _kr.GetByUser(UserId);

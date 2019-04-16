@@ -4,14 +4,14 @@
     <button class="btn btn-success mx-2" data-toggle="modal" data-target="#nkeepmodal">New Keep</button> <button
       class="btn btn-success mx-2" data-toggle="modal" data-target="#nvaultmodal">New
       Vault</button>
-    <h4 v-if="!showCurrent" class="text-center d-flex justify-content-around"><span class="pointer"
-        :class="switchViews ? 'selected' : ''" @click="switchViews = true">My Keeps</span> <span class="pointer"
-        :class="!switchViews ? 'selected' : ''" @click="switchViews = false">My
+    <h4 class="text-center d-flex justify-content-around"><span class="pointer" :class="switchViews ? 'selected' : ''"
+        @click="switchViews = true">My Keeps</span> <span class="pointer" :class="!switchViews ? 'selected' : ''"
+        @click="switchViews = false">My
         Vaults</span></h4>
-    <div v-if="!showCurrent">
+    <div>
       <transition :name="switchViews ? 'first-slide' : 'second-slide'" mode="out-in">
-        <mykeeps v-if="switchViews" :user="user"></mykeeps>
-        <myvaults v-if="!switchViews" :user="user"></myvaults>
+        <mykeeps v-if="switchViews"></mykeeps>
+        <myvaults v-if="!switchViews"></myvaults>
       </transition>
     </div>
     <newkeepmodal></newkeepmodal>
@@ -31,8 +31,8 @@
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
       }
-      let uid = ''
-      this.$store.dispatch('getMyKeeps', uid)
+      //let uid = ''
+      this.$store.dispatch('getMyKeeps', this.user.id)
     },
     props: [],
     data() {
@@ -41,6 +41,9 @@
       }
     },
     computed: {
+      user() {
+        return this.$store.state.user
+      }
     },
     methods: {},
     components: {
@@ -54,7 +57,7 @@
 
 <style>
   .selected {
-    border-bottom: solid 5px #13abc4;
+    border-bottom: solid 5px #b1bed5;
   }
 
 

@@ -12,10 +12,10 @@ namespace Keepr.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class VaultController : ControllerBase
+  public class VaultsController : ControllerBase
   {
     private readonly VaultRepository _vr;
-    public VaultController(VaultRepository vr)
+    public VaultsController(VaultRepository vr)
     {
       _vr = vr;
     }

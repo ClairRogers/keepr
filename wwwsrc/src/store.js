@@ -25,7 +25,8 @@ export default new Vuex.Store({
     keeps: [],
     activeKeep: {},
     myKeeps: [],
-    vaults: []
+    vaults: [],
+    activeVault: {}
   },
   mutations: {
     setUser(state, user) {
@@ -42,6 +43,9 @@ export default new Vuex.Store({
     },
     setVaults(state, data) {
       state.vaults = data
+    },
+    setActiveVault(state, data) {
+      state.activeVault = data
     }
   },
   actions: {
@@ -99,7 +103,7 @@ export default new Vuex.Store({
         })
     },
     getMyKeeps({ commit, dispatch }, uid) {
-      api.get('keeps', uid)
+      api.get('keeps/' + uid, uid)
         .then(res => {
           commit('setMyKeeps', res.data)
         })
@@ -119,6 +123,15 @@ export default new Vuex.Store({
     setActiveKeep({ commit, dispatch }, payload) {
       commit('setActiveKeep', payload)
     },
+    deleteKeep({ commit, dispatch }, payload) {
+      api.delete('keeps/' + payload.id)
+        .then(res => {
+          dispatch('getKeeps')
+        })
+        .catch(e => {
+          console.log('cant make keep')
+        })
+    },
 
 
 
@@ -134,6 +147,17 @@ export default new Vuex.Store({
           console.log('cant get vaults')
         })
     },
-
+    createVault({ commit, dispatch }, payload) {
+      api.post('vaults', payload)
+        .then(res => {
+          dispatch('getVaults')
+        })
+        .catch(e => {
+          console.log('cant make vault')
+        })
+    },
+    setActiveVault({ commit, dispatch }, payload) {
+      commit('setActiveVault', payload)
+    },
   }
 })

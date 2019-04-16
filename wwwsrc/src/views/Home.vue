@@ -31,6 +31,7 @@
         this.$router.push({ name: "login" });
       }
       this.$store.dispatch('getKeeps')
+      this.$store.dispatch('getVaults')
     },
     data() {
       return {
@@ -74,7 +75,7 @@
 
   @media (min-width: 1200px) {
     .card-columns {
-      column-count: 5;
+      column-count: 4;
     }
   }
 
