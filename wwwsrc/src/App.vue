@@ -75,6 +75,7 @@
 
   body {
     background-color: #222831;
+    background-image: url("https://www.transparenttextures.com/patterns/always-grey.png");
     color: rgb(149, 189, 212);
   }
 
