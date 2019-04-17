@@ -1,8 +1,9 @@
 <template>
   <div class="dashboard">
-    <h1>Your Dashboard</h1>
-    <button class="btn btn-success btn-sm mx-2 mb-2" data-toggle="modal" data-target="#nkeepmodal">New Keep</button>
-    <button class="btn btn-success btn-sm mx-2 mb-2" data-toggle="modal" data-target="#nvaultmodal">New
+    <h1 class="logo mb-3">Your Dashboard</h1>
+    <button class="btn btn-outline-secondary btn-sm mx-2 mb-2" data-toggle="modal" data-target="#nkeepmodal">New
+      Keep</button>
+    <button class="btn btn-outline-secondary btn-sm mx-2 mb-2" data-toggle="modal" data-target="#nvaultmodal">New
       Vault</button>
     <hr>
     <h2 class="text-center d-flex justify-content-center mt-4 mb-5"><span class="pointer mx-3"
@@ -58,7 +59,7 @@
 
 <style>
   .selected {
-    border-bottom: solid 5px #b1bed5;
+    border-bottom: solid 5px #00fff5;
   }
 
 

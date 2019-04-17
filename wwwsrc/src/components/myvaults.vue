@@ -4,7 +4,7 @@
       <div v-for="vault in vaults" class="col-12 col-md-4">
         <div class="card pointer mb-2" @click="setActiveVault(vault)">
           <div class="card-body">
-            <h4 class="card-title">{{vault.name}}</h4>
+            <h4 class="card-title logo">{{vault.name}}</h4>
             <hr>
             <p class="card-text">{{vault.description}}
             </p>

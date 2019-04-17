@@ -19,11 +19,11 @@
               <label class="form-check-label" for="defaultCheck1">
                 Check to make private
               </label><br>
-              <button type="submit" class="btn btn-success mt-3">Create New Keep</button>
+              <button type="submit" class="btn btn-secondary mt-3">Create New Keep</button>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

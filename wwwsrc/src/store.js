@@ -86,7 +86,7 @@ export default new Vuex.Store({
     logout({ commit, dispatch }) {
       auth.delete('logout')
         .then(res => {
-          router.push({ name: 'login' })
+          router.push({ name: 'home' })
           let data = {}
           commit('setUser', data)
         })
@@ -134,6 +134,15 @@ export default new Vuex.Store({
         })
         .catch(e => {
           console.log('cant delete keep')
+        })
+    },
+    editKeep({ commit, dispatch }, payload) {
+      api.put('keeps/' + payload.id, payload)
+        .then(res => {
+          dispatch('getKeeps')
+        })
+        .catch(e => {
+          console.log('cant edit keep')
         })
     },
 

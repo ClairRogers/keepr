@@ -34,6 +34,8 @@
     methods: {
       setActiveKeep(keep) {
         this.$store.dispatch('setActiveKeep', keep)
+        keep.views++
+        this.$store.dispatch('editKeep', keep)
       }
     },
     components: {

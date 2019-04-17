@@ -16,11 +16,12 @@
                 </div>
                 <span>
                   <span class="d-flex flex-row justify-content-center">
-                    <button class="btn btn-sm btn-danger mb-3 mx-2" @click="deleteKeep(activeKeep)"><i
-                        class="fas fa-ban" title="Delete keep"></i></button>
+                    <button class="btn btn-sm btn-danger mb-3 mx-2" v-if="user.id == activeKeep.userId"
+                      @click="deleteKeep(activeKeep)"><i class="fas fa-ban" title="Delete keep"></i></button>
                     <div class="dropdown">
-                      <button class="btn btn-secondary btn-sm dropdown-toggle mx-2" type="button"
-                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <button v-if="user.username" class="btn btn-secondary btn-sm dropdown-toggle mx-2 mb-3"
+                        type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         Add to Vault
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -57,12 +58,17 @@
       },
       vaults() {
         return this.$store.state.vaults
+      },
+      user() {
+        return this.$store.state.user
       }
     },
     methods: {
       addToVault(vault) {
         let kid = this.activeKeep.id
         this.$store.dispatch('addToVault', { vaultId: vault.id, keepId: kid })
+        this.activeKeep.keeps++
+        this.$store.dispatch('editKeep', this.activeKeep)
       },
       deleteKeep(keep) {
         this.$store.dispatch('deleteKeep', keep)
@@ -75,20 +81,20 @@
 
 <style>
   .modal-content {
-    border: 1px solid black;
-    background-color: #f4f3f3;
+    border: 1px solid #00adb5;
+    background-color: #393e46;
   }
 
   .bottom-border {
-    border-bottom: 5px solid #bfd8d5;
+    border-bottom: 5px solid #00adb5;
   }
 
   .left-border {
-    border-left: 1px solid #bfd8d5;
+    border-left: 1px solid #00adb5;
   }
 
   .card-footer {
-    background-color: #b1bed5;
+    background-color: #00adb5;
     color: white;
   }
 </style>

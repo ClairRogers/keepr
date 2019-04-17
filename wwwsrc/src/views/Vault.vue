@@ -2,11 +2,11 @@
   <div class="Vault container">
     <div class="d-flex flex-row justify-content-between">
       <h2 class="pointer" @click="goBack"><i class="fas fa-chevron-left"></i></h2>
-      <h1>{{activeVault.name}}</h1>
+      <h1 class="logo">{{activeVault.name}}</h1>
       <span></span>
     </div>
     <div class="card-columns">
-      <div v-for="vaultkeep in vaultkeeps" class="card pointer" @click="setActiveKeep(keep)" data-toggle="modal"
+      <div v-for="vaultkeep in vaultkeeps" class="card pointer" @click="setActiveKeep(vaultkeep)" data-toggle="modal"
         data-target=".bd-example-modal-lg">
         <img :src="vaultkeep.img" class="card-img-top">
         <div class="card-body">
@@ -16,10 +16,12 @@
         </div>
       </div>
     </div>
+    <keepviewmodal></keepviewmodal>
   </div>
 </template>
 
 <script>
+  import keepviewmodal from '@/components/keepviewmodal.vue'
   import router from '@/router.js'
   export default {
     name: "Vault",
@@ -38,8 +40,15 @@
     methods: {
       goBack() {
         router.push({ name: "dashboard" })
+      },
+      setActiveKeep(keep) {
+        this.$store.dispatch('setActiveKeep', keep)
+        keep.views++
+        this.$store.dispatch('editKeep', keep)
       }
     },
-    components: {}
+    components: {
+      keepviewmodal
+    }
   }
 </script>
