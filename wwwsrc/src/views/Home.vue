@@ -2,8 +2,9 @@
   <div class="home container">
     <div class="row">
       <div class="card-columns">
-        <div v-for="keep in keeps" class="card pointer" @click="setActiveKeep(keep)" data-toggle="modal"
-          data-target=".bd-example-modal-lg" @mouseover="showStuff = true" @mouseleave="showStuff = false">
+        <div v-for="keep in keeps" v-if="keep.isPrivate == false" class="card pointer" @click="setActiveKeep(keep)"
+          data-toggle="modal" data-target=".bd-example-modal-lg" @mouseover="showStuff = true"
+          @mouseleave="showStuff = false">
           <img :src="keep.img" class="card-img-top">
           <div class="card-body">
             <p class="card-text">{{keep.name}}
@@ -83,7 +84,8 @@
   .card {
     background-color: #f4f3f3;
     display: inline-block;
-    width: 100%
+    width: 100%;
+    border: 1px solid #b1bed5;
   }
 
   .whitecolor {

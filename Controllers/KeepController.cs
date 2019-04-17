@@ -77,6 +77,16 @@ namespace Keepr.Controllers
       return Ok();
     }
 
+    [HttpPut("{id}")]
+
+
+    public ActionResult<Keep> Update(int id, [FromBody] Keep editedKeep)
+    {
+      Keep edited = _kr.Update(editedKeep);
+      if (edited == null) { return BadRequest("Cannot update keep"); }
+      return Ok(edited);
+    }
+
 
 
 

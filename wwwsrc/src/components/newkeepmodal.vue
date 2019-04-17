@@ -15,6 +15,10 @@
               <input class="form-control" type="text" v-model="newKeep.Name" placeholder="Name">
               <input class="form-control mt-3" type="text" v-model="newKeep.Description" placeholder="Description">
               <input class="form-control mt-3" type="text" v-model="newKeep.Img" placeholder="Image URL">
+              <input class="form-check-input" type="checkbox" v-model="newKeep.isPrivate" value="1" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                Check to make private
+              </label><br>
               <button type="submit" class="btn btn-success mt-3">Create New Keep</button>
             </form>
           </div>
@@ -37,7 +41,8 @@
         newKeep: {
           Name: '',
           Description: '',
-          Img: ''
+          Img: '',
+          IsPrivate: false
         }
       }
     },

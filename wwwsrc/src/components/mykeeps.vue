@@ -5,7 +5,8 @@
         data-target=".bd-example-modal-lg">
         <img :src="keep.img" class="card-img-top">
         <div class="card-body">
-          <p class="card-text">{{keep.name}}
+          <p class="card-text">{{keep.name}}<span class="ml-2 opaque" v-if="keep.isPrivate == true" title="Private"><i
+                class="fas fa-lock"></i></span>
           </p>
         </div>
       </div>
@@ -40,3 +41,9 @@
     }
   }
 </script>
+
+<style>
+  .opaque {
+    opacity: .4;
+  }
+</style>

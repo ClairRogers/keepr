@@ -66,6 +66,32 @@ namespace Keepr.Controllers
       return Ok();
     }
 
+    //CREATE VAULTKEEP
+    [HttpPost("{vaultId}")]
+    [Authorize]
+    public ActionResult<VaultKeep> Create([FromBody] VaultKeep newVaultKeep)
+    {
+      newVaultKeep.UserId = HttpContext.User.Identity.Name;
+      VaultKeep result = _vr.CreateVaultKeep(newVaultKeep);
+      if (result == null)
+      {
+        return BadRequest();
+      }
+      return Ok(result);
+    }
+
+    [HttpGet("{vaultId}/keeps")]
+    [Authorize]
+    public ActionResult<IEnumerable<Keep>> GetVaultKeeps(int vaultId)
+    {
+      string UserId = HttpContext.User.Identity.Name;
+      IEnumerable<Keep> result = _vr.GetVaultKeep(vaultId, UserId);
+      if (result == null)
+      {
+        return BadRequest();
+      }
+      return Ok(result);
+    }
 
 
 

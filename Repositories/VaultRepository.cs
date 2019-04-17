@@ -49,6 +49,31 @@ namespace keepr.Repositories
       return success > 0;
     }
 
+    public VaultKeep CreateVaultKeep(VaultKeep vaultKeepToCreate)
+    {
+      try
+      {
+        int id = _db.ExecuteScalar<int>(@"
+                INSERT INTO vaultKeeps (vaultId, keepId, userId)
+                    VALUES (@VaultId, @KeepId, @UserId);
+                    SELECT LAST_INSERT_ID();
+                ", vaultKeepToCreate);
+        vaultKeepToCreate.Id = id;
+        return vaultKeepToCreate;
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        return null;
+      }
+    }
+    internal IEnumerable<Keep> GetVaultKeep(int vaultId, string userId)
+    {
+      return _db.Query<Keep>(@"SELECT * FROM vaultkeeps vk
+                  INNER JOIN keeps k ON k.id = vk.keepId 
+                  WHERE (vaultId = @vaultId AND vk.userId = @userId)", new { vaultId, userId });
+    }
+
 
 
 
@@ -56,5 +81,6 @@ namespace keepr.Repositories
     {
       _db = db;
     }
+
   }
 }

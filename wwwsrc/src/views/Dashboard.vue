@@ -1,13 +1,14 @@
 <template>
   <div class="dashboard">
     <h1>Your Dashboard</h1>
-    <button class="btn btn-success mx-2" data-toggle="modal" data-target="#nkeepmodal">New Keep</button> <button
-      class="btn btn-success mx-2" data-toggle="modal" data-target="#nvaultmodal">New
+    <button class="btn btn-success btn-sm mx-2 mb-2" data-toggle="modal" data-target="#nkeepmodal">New Keep</button>
+    <button class="btn btn-success btn-sm mx-2 mb-2" data-toggle="modal" data-target="#nvaultmodal">New
       Vault</button>
-    <h4 class="text-center d-flex justify-content-around"><span class="pointer" :class="switchViews ? 'selected' : ''"
-        @click="switchViews = true">My Keeps</span> <span class="pointer" :class="!switchViews ? 'selected' : ''"
-        @click="switchViews = false">My
-        Vaults</span></h4>
+    <hr>
+    <h2 class="text-center d-flex justify-content-center mt-4 mb-5"><span class="pointer mx-3"
+        :class="switchViews ? 'selected' : ''" @click="switchViews = true">My Keeps</span> <span class="pointer mx-3"
+        :class="!switchViews ? 'selected' : ''" @click="switchViews = false">My
+        Vaults</span></h2>
     <div>
       <transition :name="switchViews ? 'first-slide' : 'second-slide'" mode="out-in">
         <mykeeps v-if="switchViews"></mykeeps>

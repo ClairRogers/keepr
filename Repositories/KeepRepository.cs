@@ -29,8 +29,8 @@ namespace keepr.Repositories
       try
       {
         int id = _db.ExecuteScalar<int>(@"
-                INSERT INTO keeps (name, description, userId, img)
-                    VALUES (@Name, @Description, @UserId, @Img);
+                INSERT INTO keeps (name, description, userId, img, isPrivate)
+                    VALUES (@Name, @Description, @UserId, @Img, @IsPrivate);
                     SELECT LAST_INSERT_ID();
                 ", newKeepData);
         newKeepData.Id = id;
@@ -53,10 +53,36 @@ namespace keepr.Repositories
     {
       return _db.Query<Keep>("SELECT * FROM keeps WHERE userId = @UserId", new { UserId });
     }
+    internal Keep Update(Keep editedKeep)
+    {
+      try
+      {
+        string query = @"
+        UPDATE keeps SET
+          name = @Name,
+          description = @Description,
+          userId = @UserId,
+          img = @Img,
+          views = @Views,
+          keeps = @Keeps,
+          shares = @Shares,
+          isPrivate = @IsPrivate
+
+          WHERE id = @Id;
+          SELECT * FROM keeps WHERE id = @Id;";
+        return _db.QueryFirstOrDefault<Keep>(query, editedKeep);
+      }
+      catch (Exception e)
+      {
+        System.Console.WriteLine(e);
+        return null;
+      }
+    }
 
     public KeepRepository(IDbConnection db)
     {
       _db = db;
     }
+
   }
 }

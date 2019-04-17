@@ -30,8 +30,9 @@
                     </div>
                   </span>
                   <div class="card-footer">
-                    <small><i class="far fa-eye" title="Views"></i>: {{activeKeep.views}} <i
-                        class="fas fa-share-square ml-4 pointer" title="Share"></i></small>
+                    <small><i class="far fa-eye" title="Views"></i>: {{activeKeep.views}} <i class="far fa-save ml-4"
+                        title="Keeps"></i>: {{activeKeep.keeps}}<i class="fas fa-share-square ml-4 pointer"
+                        title="Share"></i></small>
                   </div>
                 </span>
               </div>
@@ -60,7 +61,8 @@
     },
     methods: {
       addToVault(vault) {
-        this.$store.dispatch('addToVault', vault)
+        let kid = this.activeKeep.id
+        this.$store.dispatch('addToVault', { vaultId: vault.id, keepId: kid })
       },
       deleteKeep(keep) {
         this.$store.dispatch('deleteKeep', keep)
