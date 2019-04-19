@@ -77,6 +77,7 @@ export default new Vuex.Store({
       auth.post('login', creds)
         .then(res => {
           commit('setUser', res.data)
+          dispatch('getVaults', res.data.id)
           router.push({ name: 'home' })
         })
         .catch(e => {
@@ -88,7 +89,9 @@ export default new Vuex.Store({
         .then(res => {
           router.push({ name: 'home' })
           let data = {}
+          let vaults = []
           commit('setUser', data)
+          commit('setVaults', vaults)
         })
     },
 
@@ -195,6 +198,15 @@ export default new Vuex.Store({
         })
         .catch(e => {
           console.log('cant delete vault')
+        })
+    },
+    deleteVK({ commit, dispatch }, payload) {
+      api.delete('vaults/' + payload.vaultId + '/keeps/' + payload.keepId, payload)
+        .then(res => {
+          dispatch('getVaultKeeps', payload.vaultId)
+        })
+        .catch(e => {
+          console.log('cant delete vaultkeep')
         })
     }
   }

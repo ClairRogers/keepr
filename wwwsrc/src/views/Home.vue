@@ -35,7 +35,9 @@
       //   this.$router.push({ name: "login" });
       // }
       this.$store.dispatch('getKeeps')
-      this.$store.dispatch('getVaults')
+      if (this.user.id) {
+        this.$store.dispatch('getVaults', this.user.id)
+      }
     },
     data() {
       return {

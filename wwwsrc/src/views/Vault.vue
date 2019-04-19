@@ -14,6 +14,9 @@
               title="Private"><i class="fas fa-lock"></i></span>
           </p>
         </div>
+        <div class="card-img-overlay">
+          <p class="text-right opaque" @click.stop="removeVK(vaultkeep)"><i class="fas fa-times"></i></p>
+        </div>
       </div>
     </div>
     <keepviewmodal></keepviewmodal>
@@ -45,6 +48,10 @@
         this.$store.dispatch('setActiveKeep', keep)
         keep.views++
         this.$store.dispatch('editKeep', keep)
+      },
+      removeVK(keep) {
+        debugger
+        this.$store.dispatch('deleteVK', { keepId: keep.id, vaultId: this.activeVault.id })
       }
     },
     components: {
@@ -52,3 +59,10 @@
     }
   }
 </script>
+
+<style>
+  .opaque {
+    color: #fff;
+    text-shadow: 0 0 5px black;
+  }
+</style>

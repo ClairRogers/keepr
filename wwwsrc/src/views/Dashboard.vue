@@ -34,7 +34,7 @@
         this.$router.push({ name: "login" });
       }
       //let uid = ''
-      this.$store.dispatch('getMyKeeps', this.user.id)
+      //this.$store.dispatch('getMyKeeps', this.user.id)
     },
     props: [],
     data() {

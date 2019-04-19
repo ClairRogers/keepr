@@ -74,6 +74,11 @@ namespace keepr.Repositories
                   WHERE (vaultId = @vaultId AND vk.userId = @userId)", new { vaultId, userId });
     }
 
+    internal bool DeleteVK(int VaultId, int KeepId)
+    {
+      int success = _db.Execute("DELETE FROM vaultkeeps WHERE vaultid = @VaultId AND keepId = @KeepId", new { VaultId, KeepId });
+      return success > 0;
+    }
 
 
 

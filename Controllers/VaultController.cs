@@ -93,6 +93,15 @@ namespace Keepr.Controllers
       return Ok(result);
     }
 
+    [HttpDelete("{vaultId}/keeps/{keepId}")]
+
+    public ActionResult<string> Delete(int vaultId, int keepId)
+    {
+      bool successful = _vr.DeleteVK(vaultId, keepId);
+      if (!successful) { return BadRequest(); }
+      return Ok();
+    }
+
 
 
 
